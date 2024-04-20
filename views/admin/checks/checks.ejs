@@ -1,0 +1,125 @@
+<%- include('../testicludes/head.ejs') %> <%- include('../testicludes/nav.ejs')
+%>
+
+<div class="right_container_in">
+  <div class="row payment_row">
+    <div class="col l-2-4 m-3 c-3">
+      <div class="container_confirm_text">STK</div>
+    </div>
+    <div class="col l-2-4 m-3 c-3">
+      <div class="container_confirm_text">Code Token</div>
+    </div>
+    <div class="col l-2-4 m-3 c-3">
+      <div class="container_confirm_text">Price</div>
+    </div>
+    <div class="col l-2-4 m-3 c-3">
+      <div class="container_confirm_text">Xác nhận</div>
+    </div>
+    <div class="col l-2-4 m-3 c-3">
+      <div class="container_confirm_text">Còn lại</div>
+    </div>
+  </div>
+  <div
+    class="container_confirm"
+    style="height: 250px; overflow: auto; padding: 0 12px"
+  >
+    <% if(checks0.length > 0) { %> <% for(let check of checks0) { %>
+    <div class="row payment_row">
+      <div class="col l-2-4 m-2-4 c-2-4">
+        <div class="container_confirm_text"><%=check.infor.STK%></div>
+      </div>
+      <div class="col l-2-4 m-2-4 c-2-4">
+        <div class="container_confirm_text"><%=check.infor.code%></div>
+      </div>
+      <div class="col l-2-4 m-2-4 c-2-4">
+        <div class="container_confirm_text">$<%=check.infor.total%></div>
+      </div>
+
+      <form
+        method="post"
+        action="/admin/confirmpay"
+        class="col l-2-4 m-2-4 c-2-4"
+        style="text-align: center"
+      >
+        <input type="hidden" name="checkId" value="<%=check._id%>" />
+        <div class="container_confirm_text">
+          <button type="submit" class="payment_has_icon">
+            <i class="fa-solid fa-check payment_icon"></i>
+          </button>
+        </div>
+      </form>
+      <div class="col l-2-4 m-2-4 c-2-4">
+        <input type="hidden" value="<%=check.csrf%>" class="csrfToken" />
+        <div class="container_confirm_text time_token">
+          <%=check.infor.time%>
+        </div>
+      </div>
+    </div>
+
+    <% } %> <% } else { %>
+    <div class="row payment_row" style="border: none; justify-content: center">
+      <h2 style="font-size: 18px">Chưa có đơn thanh toán nào cần xác nhận</h2>
+    </div>
+
+    <% } %>
+  </div>
+
+  <div class="right_container_main">
+    <table class="admin_table">
+      <tr class="admin_tr">
+        <th class="admin_th">Amount</th>
+        <th class="admin_th">Email</th>
+        <th class="admin_th">STK</th>
+        <th class="admin_th">Time</th>
+      </tr>
+      <% if(checks1.length > 0) { %> <% for(let check of checks1) { %>
+      <tr class="admin_tr">
+        <td>$750</td>
+        <td><%=check.user.email%></td>
+        <td><%=check.infor.STK%></td>
+        <td><%=check.infor.date%></td>
+      </tr>
+
+      <% } %> <% } else { %>
+      <tr class="admin_tr">
+        <td colspan="4">Không có đơn thanh toán</td>
+      </tr>
+
+      <% } %>
+    </table>
+  </div>
+  <%- include('../includes/navigation.ejs') %>
+</div>
+
+<script>
+  const timeToken = document.querySelectorAll(".time_token");
+
+  const tick = function () {
+    timeToken.forEach((item) => {
+      const min = String(
+        Math.trunc(item.parentNode.querySelector(".csrfToken").value / 60000)
+      ).padStart(2, 0);
+      const sec = String(
+        item.parentNode.querySelector(".csrfToken").value % 60000
+      )
+        .padStart(5, 0)
+        .slice(0, 2);
+      item.textContent = `${min}: ${sec}`;
+
+      if (item.parentNode.querySelector(".csrfToken").value <= 0) {
+        item.closest(".payment_row").style.display = "none";
+      }
+      item.parentNode.querySelector(".csrfToken").value -= 1000;
+    });
+  };
+
+  const test = setInterval(tick, 1000);
+
+  //const coso = function() {
+  //console.log(1);
+  //}
+
+  //const test = setInterval(coso, 1000);
+</script>
+<%- include('../../notify/notify.ejs') %> <%- include('../testicludes/end.ejs')
+%>

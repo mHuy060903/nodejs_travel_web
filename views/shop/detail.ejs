@@ -1,0 +1,338 @@
+<%- include('../includes/head.ejs') %>
+    <div class="header">
+<%- include('../includes/nav.ejs') %>
+     
+    
+    <div class="body_detail">
+      <div class="grid wide">
+        <div class="row">
+          <div class="col l-6 m-6 c-12">
+            <div class="detail_container">
+              <img src="/<%=tour.imageUrl%>" alt="" class="detail_img" />
+            </div>
+          </div>
+          <div class="col l-6 m-6 c-12">
+            <div class="detail_container">
+              <h1 class="detail_name"><%=tour.name%></h1>
+              <hr />
+              <h1 class="detail_name">$<%=tour.price%></h1>
+              <p class="detail_des">
+                <%=tour.description%>
+              </p>
+              <h3 class="detail_place">Điểm đến: <%=tour.location%></h3>
+              <!-- <h3 class="detail_place">Thời gian: 3 Ngày 2 Đêm</h3> -->
+              <h3 class="detail_place">Ngày khởi hành: <%=tourDate%></h3>
+              <% if(tour.userId._id.toString() === user._id.toString()) { %>
+                
+               <a href="/admin/tour/edit/<%=tour._id%>?edit=true" style="display: inline-block;width: 150px; text-align: center; " class="detail_chat_link">SỬA TOUR</a>
+             <% } else { %>
+             
+              <a href="/chatwith/<%=tour.userId._id%>"  class="detail_chat">
+                
+                <button href="" class="detail_chat_link">
+                  <i class="fa-brands fa-facebook-messenger icon_detail"></i>
+                 <h3 class="detail_name_user_chat"> Nhắn tin cho <%=tour.userId.name%></h3>
+                </button>
+              </a>
+
+              <% } %>
+             
+              
+                <button class="btn_detail btn_on_modal">Đặt ngay</button>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="body_comments">
+      <div class="grid wide">
+        <div class="row">
+          <div class="col l-12 m-12 c-12">
+            <div class="comments_container">
+              <h1 class="comments_header">Đánh giá của bạn</h1>
+              <div class="comments_has_star">
+                <div class="comments_star <% if(oldInput.numStar === 1) { %>
+                  active
+                  <% } %>
+                  " data-num="1">
+                  <i class="fa-solid fa-star icon_star"></i>
+                  <div class="separate"></div>
+                </div>
+                <div class="comments_star  <% if(oldInput.numStar === 2) { %>
+                  active
+                  <% } %>" data-num="2">
+                  <i class="fa-solid fa-star icon_star"></i>
+                  <i class="fa-solid fa-star icon_star"></i>
+                  <div class="separate"></div>
+                </div>
+                <div class="comments_star  <% if(oldInput.numStar === 3) { %>
+                  active
+                  <% } %>" data-num="3">
+                  <i class="fa-solid fa-star icon_star"></i>
+                  <i class="fa-solid fa-star icon_star"></i>
+                  <i class="fa-solid fa-star icon_star"></i>
+                  <div class="separate"></div>
+                </div>
+                <div class="comments_star  <% if(oldInput.numStar === 4) { %>
+                  active
+                  <% } %>" data-num="4">
+                  <i class="fa-solid fa-star icon_star"></i>
+                  <i class="fa-solid fa-star icon_star"></i>
+
+                  <i class="fa-solid fa-star icon_star"></i>
+
+                  <i class="fa-solid fa-star icon_star"></i>
+                  <div class="separate"></div>
+                </div>
+                <div class="comments_star  <% if(oldInput.numStar === 5) { %>
+                  active
+                  <% } %>" data-num="5">
+                  <i class="fa-solid fa-star icon_star"></i>
+                  <i class="fa-solid fa-star icon_star"></i>
+
+                  <i class="fa-solid fa-star icon_star"></i>
+
+                  <i class="fa-solid fa-star icon_star"></i>
+
+                  <i class="fa-solid fa-star icon_star"></i>
+
+                  
+                  <!-- <div class="separate"></div> -->
+                </div>
+                <h3 style="margin: 0px 20px 0px; color: red;"><%= errorsMessage.find(e => e.param === 'num_star') ? errorsMessage.find(e => e.param === 'num_star').msg : '' %></h3> 
+              </div>
+              <form class="form_comment" action="/tour/comment" method="post">
+                <input type="hidden" name="num_star" value="<%=oldInput.numStar%>" />
+                <input type="hidden" name="userId" value="<%=userId%>" />
+                <input type="hidden" name="tourId" value="<%=tour._id%>" />
+                <textarea name="comment" class="comments_area"><%=oldInput.comment%></textarea>
+                 <h3 style="margin: 10px; color: red;"><%= errorsMessage.find(e => e.param === 'comment') ? errorsMessage.find(e => e.param === 'comment').msg : '' %></h3>
+                <button class="btn_detail" type="submit">Đánh giá</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="row comment_row">
+          <h1 class="comments_header" style="padding: 20px 0px; margin-left: 10px;">Đánh giá của mọi người</h1>
+           <div class="comments_containers" style="width: 100%;">
+
+          
+            <% for(let comment of comments) { %>
+              <div class="col c-12 l-12 c-12">
+                <div class="comments_container">
+                 
+                  <div class="comments_detail">
+                    <div class="comments_user">
+                      <img
+                        src="/<%=comment.userId.image%>"
+                        alt=""
+                        class="tour_bottom_creator_image"
+                      />
+                      <div class="comments_name_star">
+                        <span class="comments_name"><%=comment.time%></span>
+                        <span class="comments_name"><%=comment.userId.name%></span>
+                        <div class="comments_been_star">
+                          <% for(let i = 0; i < comment.numStar; i++) { %>
+                          <i class="fa-solid fa-star icon_star"></i>
+                          <% } %>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="comments_text"><%=comment.text%></p>
+                  </div>
+                </div>
+                <hr>
+              </div>
+              <% } %>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="grid wide">
+        <div class="row">
+          <div class="col l-3 m-6 c-12">
+            <div class="footer_container">
+              <h5 class="footer_header">Travel.</h5>
+              <p class="footer_text">
+                Lorem Ipsum is simply dummy text of the printing and
+                typesetting industry. Lorem Ipsum has been the industry's
+                standard dummy text ever since the 1500s, when an unknown
+                printer took a galley of type and scrambled it to make a type
+                specimen book.
+              </p>
+              <ul class="footer_list_icon">
+                <li class="footer_item">
+                  <a href="" class="footer_link"><i class="fa-brands fa-twitter"></i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"><i class="fa-brands fa-youtube"></i></i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"><i class="fa-brands fa-facebook"></i></i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"><i class="fa-brands fa-instagram"></i></i></a>
+                </li>
+                
+              </ul>
+            </div>
+          </div>
+          <div class="col l-3 m-6 c-12">
+            <div class="footer_container">
+              <h5 class="footer_header">OUR AGENCY</h5>
+              <ul class="footer_list">
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Services</i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Insurance </a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Agency</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Tourism</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Payment</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col l-3 m-6 c-12">
+            <div class="footer_container">
+              <h5 class="footer_header">PARTNERS</h5>
+              <ul class="footer_list">
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Booking</i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > RentalCar </a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > HostelWorld</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Trivago</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > TripAdvisor</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col l-3 m-6 c-12">
+            <div class="footer_container">
+              <h5 class="footer_header">LAST MINUTE</h5>
+              <ul class="footer_list">
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > LonDon</i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Califonia </a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Indonesia</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Europe</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Oceania </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% if(formEmail) { %>
+    <div class="modal <% if(isModal) { %>
+      active
+      <% } %>
+      ">
+        <div class="modal_overlay">
+
+        </div>
+       
+        <div class="modal_body">
+          <form action="  /order
+            " class="order_form" method="post">
+            <i class="fa-solid fa-x icon_order_form"></i>
+              <div class="form_control_in">
+               
+                <div class="form_control_order">
+                  <label for="email">Email:</label>
+                  <input type="text" name="email" value="<%=emailUser%>">
+               <span class="input_error"><%= errorsMessage.find(e => e.param === 'email') ? errorsMessage.find(e => e.param === 'email').msg : '' %></span>
+                  
+                </div>
+            
+             <div class="form_control_order_quantity">
+               <label for="phone">Số người</label>
+               <div class="form_control_quantity">
+                 <span class="form_control_btn btn_increase">+</span>
+                 <input type="text" name="quantity" class="order_quantity" value="1">
+                 <span class="form_control_btn btn_reduce">-</span>
+               </div>
+             </div>            
+            </div>
+            <input type="hidden" value="<%=userId%>" name="userId">
+            <input type="hidden" value="<%=tour._id%>" name="tourId">
+             <button class="form_order_confirm ">Xác nhận</button>
+           
+          </form>
+        </div>
+       
+    </div>
+    <% } else { %>
+      <div class="modal <% if(isModal) { %>
+        active
+        <% } %>
+        ">
+          <div class="modal_overlay">
+  
+          </div>
+         
+          <div class="modal_body">
+            <form action="  /addcart
+              " class="order_form" method="post">
+              <i class="fa-solid fa-x icon_order_form icon__x"></i>
+                <div class="form_control_in">
+                 
+                  <div class="form_control_order">
+                    <label for="email">Nhập mã xác nhận được gửi đến email của bạn:</label>
+                    <input type="text" name="codeToken" value="<%=oldInput.codeToken%>" >
+               <span class="input_error"><%= errorsMessage.find(e => e.param === 'codeToken') ? errorsMessage.find(e => e.param === 'codeToken').msg : '' %></span>
+                    
+                  </div>
+               
+                          
+              </div>
+              <input type="hidden" value="<%=userId%>" name="userId">
+              <input type="hidden" value="<%=tour._id%>" name="tourId">
+               <button class="form_order_confirm ">Xác nhận</button>
+             
+            </form>
+          </div>
+         
+      </div>
+      <% } %>
+      <script>
+        const closeIcon = document.querySelector('.icon__x');
+        closeIcon.addEventListener('click', function(e) {
+          closeIcon.closest('.modal').classList.remove('active');
+        })
+        const buttonForm = document.querySelector('.btn_on_modal');
+        buttonForm.addEventListener('click', function(e) {
+          const modalForm = document.querySelector('.modal');
+          modalForm.style.display = 'flex';
+        })
+
+      
+
+      </script>
+   <script src="/js/detail.js"></script>
+    <%- include('../includes/end.ejs') %>

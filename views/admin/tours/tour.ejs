@@ -1,0 +1,70 @@
+<%- include('../testicludes/head.ejs') %>
+ <%- include('../testicludes/nav.ejs') %>
+
+  <div class="right_container_in">
+    
+    <div class="right_container_main">
+      
+      <a href="/admin/tour/add" class="right_container_link"
+        ><i class="fa-solid fa-plus icon_admin_container"></i> Thêm Tour</a
+      >
+      <form class="right_container_searching" action="/admin/tour" method="get">
+        <input
+          type="text"
+          name="name"
+          class="right_container_search"
+          placeholder="Nhập tên tour"
+          value="<%=queryInput.name%>"
+        />
+       
+        <button type="submit" class="right_container_search_btn">
+          <i class="fa-solid fa-magnifying-glass icon_admin_container"></i>Tìm
+          kiếm
+        </button>
+      </form>
+      <table class="admin_table">
+        <tr class="admin_tr">
+          <th class="admin_th">Tên</th>
+          <th class="admin_th">Địa điểm</th>
+          <th class="admin_th">Image</th>
+          <th class="admin_th">Price</th>
+          <th class="admin_th">Đăng bởi</th>
+
+          <th class="admin_th">Sửa</th>
+          <th class="admin_th">Xóa</th>
+        </tr>
+        <% if(allTours.length > 0) { %> <% for(let tour of allTours) { %>
+
+        <tr class="admin_tr">
+          <td><%=tour.name%></td>
+          <td><%=tour.location%></td>
+          <td><img class="image_tr" src="\<%=tour.imageUrl%>" alt="" /></td>
+          <td><%=tour.price%></td>
+          <td><%=tour.userId.email%></td>
+          <td>
+            <a
+              href="tour/edit/<%=tour._id%>?edit=true"
+              class="table_link link_edit"
+              ><i class="fa-solid fa-pen-to-square"></i> Sửa</a
+            >
+          </td>
+          <td>
+            <a href="tour/delete/<%=tour._id%>" class="table_link link_delete delete_tour"
+              ><input type="hidden" name="tourId" value="<%=tour._id%>"><i class="fa-solid fa-trash"></i> Xóa</a
+            >
+          </td>
+        </tr>
+
+        <% } %> <% } else { %>
+        <tr>
+          <td colspan="7" style="text-align: center; font-size: 14px; padding-top: 10px;">Không có tour theo yêu cầu</td>
+        </tr>
+        <% } %>
+      </table>
+    </div>
+    <%- include('../includes/navigation.ejs') %>  
+  </div>
+
+
+<%- include('../../notify/notify.ejs') %> 
+ <%- include('../testicludes/end.ejs') %>

@@ -1,0 +1,95 @@
+<div class="nav <% if(isFixed) {%>
+   fixed
+  <% } %>
+  ">
+    <div class="grid wide">
+      <div class="nav-in">
+        <ul class="nav_list_logo">
+          <a href="" class="nav_list_logo" style="text-decoration: none">
+            <i class="fa-solid fa-compass nav-icon .nav-icon-form"></i>
+            <p>Travel.</p>
+           
+          </a>
+        </ul>
+
+        <ul class="nav_list">
+          <li class="nav_list_item none-mobile">
+            <a href="/" class="nav_list_item_link">Home</a>
+          </li>
+          <li class="nav_list_item none-mobile">
+            <a href="" class="nav_list_item_link">Products</a>
+          </li>
+          <li class="nav_list_item none-mobile">
+            <a href="" class="nav_list_item_link">Resource</a>
+          </li>
+          <li class="nav_list_item none-mobile">
+            <a href="" class="nav_list_item_link">Contact</a>
+          </li>
+          <li class="nav_list_item none-mobile">
+            <a href="" class="nav_list_item_link">Blog</a>
+          </li>
+             <li class="nav_list_item none-pc none-tablet">
+            <a href="" class="nav_list_item_link icon icon_open"
+              ><i class="fa-solid fa-bars"></i
+            ></a>
+          </li>
+        </ul>
+        <% if(isLoggin)  {%>
+        <ul class="nav_list">
+          <li class="nav_list_item ">
+            <a href="" class="nav_list_item_link link_user">  <img src="/<%=user.image%>" class="img_header" alt=""> <p><%=user.name%></p></a>
+            <div class="sub_nav">
+              <div class="sub_nav_in">
+                <ul class="sub_nav_list">
+                  <% if(isRole === 2) {%>
+                    <li class="sub_nav_item">
+                      <a href="/admin/user" target="_blank" class="sub_nav_link">Admin</a>
+                    </li>
+                    <% } %>
+                  <li class="sub_nav_item">
+                    <a href="/profile" class="sub_nav_link">Quản lý tài khoản</a>
+                  </li>
+                  <li class="sub_nav_item">
+                    <a href="/check" class="sub_nav_link">Đơn hàng đã mua</a>
+                  </li>
+                  <li class="sub_nav_item">
+                    <a href="/logout" class="sub_nav_link">Đăng xuất</a>
+                  </li>
+                
+                </ul>
+              </div>
+            </div>
+          </li>
+         
+        </ul>
+        <% } else { %>
+          <ul class="nav_list">
+            <li class="nav_list_item">
+              <a href="/login" class="nav_list_item_link link_user"> Login/Register </a>
+            </li>
+          </ul>
+          <% } %>
+      </div>
+    </div>
+    <ul class="nav_list-mobile none-pc none-tablet">
+      <a href="" class="nav_list_item_link-mb mobile_icon icon icon_close"
+        ><i class="fa-solid fa-xmark nav_mobile_icon"></i
+      ></a>
+      <li class="nav_list_item-mb">
+        <a href="" class="nav_list_item_link-mb mobile-link">Home</a>
+      </li>
+      <li class="nav_list_item-mb">
+        <a href="" class="nav_list_item_link-mb mobile-link">Products</a>
+      </li>
+      <li class="nav_list_item-mb">
+        <a href="/profile" class="nav_list_item_link-mb mobile-link">Quản lý thông tin</a>
+      </li>
+      <li class="nav_list_item-mb">
+        <a href="" class="nav_list_item_link-mb mobile-link">Quản lý đơn hàng</a>
+      </li>
+      <li class="nav_list_item-mb">
+        <a href="/logout" class="nav_list_item_link-mb mobile-link">Đăng xuất</a>
+      </li>
+    </ul>
+  </div>
+  </div>

@@ -1,0 +1,282 @@
+<%- include('../includes/head.ejs') %>
+    <div class="header">
+      <%- include('../includes/nav.ejs') %>
+    </div>
+    <div class="cart" style="margin-top: 85px">
+      <div class="grid wide">
+        <div class="row" style="background-color: orangered; border-radius: 5px; border: none;">
+          <div class="col l-2-4 m-2 c-2">
+            <h5 class="cart-title">Name Tour</h5>
+          </div>
+          <div class="col l-2-4 m-2 c-2">
+            <h5 class="cart-title">Quantity</h5>
+          </div>
+          <div class="col l-2-4 m-2 c-2">
+            <h5 class="cart-title">Price</h5>
+          </div>
+          <div class="col l-2-4 m-2 c-2">
+            <h5 class="cart-title">Total</h5>
+          </div>
+        
+          <div class="col l-2 m-2 c-2">
+            <h5 class="cart-title">Action</h5>
+          </div>
+        </div>
+        <% if(items.length > 0) { %>
+          <div class="cartParent">
+
+          
+          <% for(let item of items) { %>
+        <div class="row cart_row">
+          <div class="col l-2-4 m-2 c-2">
+            <div class="cart_container">
+              <div class="cart_tour">
+                <img
+                  src="/<%=item.tourId.imageUrl%>"
+                  alt=""
+                  class="cart_tour_img"
+                />
+                <h3 class="cart_tour_name"><%=item.tourId.name%></h3>
+              </div>
+            </div>
+          </div>
+          <div class="col l-2-4 m-2 c-2">
+            <div class="cart_container">
+              <div class="cart_quantity">
+                
+                <h3 class="cart_tour_price"><%=item.quantity%></h3>
+               
+              </div>
+            </div>
+          </div>
+          <div class="col l-2-4 m-2 c-2">
+            <div class="cart_container">
+              <h3 class="cart_tour_price">$<%=item.tourId.price%></h3>
+            </div>
+          </div>
+          <div class="col l-2-4 m-2 c-2">
+            <div class="cart_container">
+              <h3 class="cart_tour_price">$<%=item.tourId.price * item.quantity%></h3>
+            </div>
+          </div>
+          <div class="col l-2-4 m-2 c-2">
+            <div class="cart_container">
+              <form onsubmit="deleteCart()" action="/order/delete-tour" class="formDelete" method="POST">
+                <input type="hidden" value="<%=item._id%>" name="orderId">
+                <button class="btn_detail" style="margin-top: 0px;">Xóa</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+        <% }%>
+       <% } else {%>
+        <div class="row cart_row">
+          <div class="col l-12 c-12 m-12">
+            <h1 style="text-align: center;">Chưa có sản phẩm nào được thêm vào giỏ hàng</h1>
+          </div>
+          </div>
+        <% } %>
+        <hr>
+        <% if(items.length > 0) { %>
+         <div class="row">
+            <div class="col l-8 m-6 c-12">
+            </div>
+            <div class="col l-4 m-6 c-12">
+                <div class="cart_cost">
+                    <div class="cross"></div>
+                   <div class="cart_control" action="">
+                      <h3 class="cart_control_title">SubTotal:</h3>
+                      <h4 class="cart_control_price">$<%=total%></h4>
+                      <button class="btn_detail btn_order">Thanh toán</button>
+                        <!-- <script
+                          src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                          data-key="pk_test_51LptRHLjMvOhowgDV8R04P7bq4UV268lolJ7elBc1jTZX3cQifPwK3q5ztkL4gJfU2fhtR2DRRK4RKLEPMURIdBP006t2IDDVL"
+                          data-amount="<%=total * 100%>"
+                          data-name="Your Order"
+                          data-description="All the items you ordewred"
+                          data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                          data-locale="auto"
+                          data-currency="usd">
+                        </script> -->
+                      
+                   </div>
+                </div>
+            </div>
+         </div>
+         <% } %>
+      </div>
+    </div>
+    <div class="footer" style="margin-top: 125px;">
+      <div class="grid wide">
+        <div class="row">
+          <div class="col l-3 m-6 c-12">
+            <div class="footer_container">
+              <h5 class="footer_header">Travel.</h5>
+              <p class="footer_text">
+                Lorem Ipsum is simply dummy text of the printing and
+                typesetting industry. Lorem Ipsum has been the industry's
+                standard dummy text ever since the 1500s, when an unknown
+                printer took a galley of type and scrambled it to make a type
+                specimen book.
+              </p>
+              <ul class="footer_list_icon">
+                <li class="footer_item">
+                  <a href="" class="footer_link"><i class="fa-brands fa-twitter"></i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"><i class="fa-brands fa-youtube"></i></i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"><i class="fa-brands fa-facebook"></i></i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"><i class="fa-brands fa-instagram"></i></i></a>
+                </li>
+                
+              </ul>
+            </div>
+          </div>
+          <div class="col l-3 m-6 c-12">
+            <div class="footer_container">
+              <h5 class="footer_header">OUR AGENCY</h5>
+              <ul class="footer_list">
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Services</i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Insurance </a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Agency</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Tourism</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Payment</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col l-3 m-6 c-12">
+            <div class="footer_container">
+              <h5 class="footer_header">PARTNERS</h5>
+              <ul class="footer_list">
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Booking</i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > RentalCar </a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > HostelWorld</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Trivago</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > TripAdvisor</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col l-3 m-6 c-12">
+            <div class="footer_container">
+              <h5 class="footer_header">LAST MINUTE</h5>
+              <ul class="footer_list">
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > LonDon</i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Califonia </a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Indonesia</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Europe</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Oceania </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal <% if(modal) { %>
+      active
+      <% } %>
+      ">
+        <div class="modal_overlay">
+
+        </div>
+       
+        <div class="modal_body">
+          <form action="/ordercart" class="order_form" method="post">
+            <i class="fa-solid fa-x icon_order_form icon__x"></i>
+              <div class="form_control_in">
+               <div class="form_order_infor" >
+               
+                
+               </div>
+               
+
+                <div class="form_control_order">
+                  <label for="email">Nhập STK</label>
+                  <input type="number" name="stk" value="<%=oldInput.stk%>" >
+               <span class="input_error"><%= errorsArray.find(e => e.param === 'stk') ? errorsArray.find(e => e.param === 'stk').msg : '' %></span>
+                  
+                  
+                </div>
+                <div class="form_control_order">
+                  <label for="email">Nội dung chuyển khoản</label>
+                  <input type="text" name="codeToken" value="<%=random%>"  readonly="readonly">
+                  
+                  
+                </div>
+             
+                        
+            </div>
+           
+             <button class="form_order_confirm ">$<%=total%></button>
+           
+          </form>
+        </div>
+       
+    </div>
+    <script>
+      const navIconOpen = document.querySelector(".icon_open");
+      const navIconClose = document.querySelector(".icon_close");
+      const navMobile = document.querySelector(".nav_list-mobile");
+
+      navIconOpen.addEventListener("click", function (e) {
+        e.preventDefault();
+        navMobile.classList.add("click");
+      });
+
+      navIconClose.addEventListener("click", function (e) {
+        e.preventDefault();
+        navMobile.classList.remove("click");
+      });
+
+     //COntro quantity
+const iconX = document.querySelector(".icon_order_form");
+const btnOn = document.querySelector(".btn_order");
+const modal = document.querySelector(".modal");
+const close = modal.querySelector(".close_x");
+
+iconX.addEventListener("click", function (e) {
+  modal.style.display = "none";
+});
+
+btnOn.addEventListener("click", function (e) {
+  e.preventDefault();
+  modal.style.display = "flex";
+});
+     
+    </script>
+
+    <%- include('../includes/end.ejs') %>

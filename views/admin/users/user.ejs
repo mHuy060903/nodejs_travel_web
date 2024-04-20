@@ -1,0 +1,81 @@
+<%- include('../testicludes/head.ejs') %> <%- include('../testicludes/nav.ejs')
+%>
+
+<div class="right_container_in">
+  <div class="right_container_main">
+    <a href="user/add" class="right_container_link"
+      ><i class="fa-solid fa-plus icon_admin_container"></i> Thêm user</a
+    >
+    <form class="right_container_searching" action="/admin/user" method="get">
+      <input
+        type="text"
+        name="name"
+        class="right_container_search"
+        placeholder="Nhập tên"
+        value="<%=queryInput.name%>"
+      />
+      <input
+        type="text"
+        name="email"
+        class="right_container_search"
+        placeholder="Nhập email"
+        value="<%=queryInput.email%>"
+      />
+      <button type="submit" class="right_container_search_btn">
+        <i class="fa-solid fa-magnifying-glass icon_admin_container"></i>Tìm
+        kiếm
+      </button>
+    </form>
+    <table class="admin_table">
+      <tr class="admin_tr">
+        <th class="admin_th">Image</th>
+        <th class="admin_th">Email</th>
+        <th class="admin_th">Tên</th>
+        <th class="admin_th">Vai trò</th>
+
+        <th class="admin_th">Sửa</th>
+        <th class="admin_th">Xóa</th>
+      </tr>
+      <% if(allUser.length > 0) { %> <% for(let user of allUser) { %>
+
+      <tr class="admin_tr">
+        <td><img class="image_tr" src="\<%=user.image%>" alt="" /></td>
+        <td><%=user.email%></td>
+        <td><%=user.name%></td>
+        <% if(user.role === 1) { %>
+        <td>Người dùng</td>
+        <% } %> <% if(user.role === 2) { %>
+        <td>Admin</td>
+        <% } %>
+
+        <td>
+          <a
+            href="user/edit/<%=user._id%>?edit=true"
+            class="table_link link_edit"
+            ><i class="fa-solid fa-pen-to-square"></i> Sửa</a
+          >
+        </td>
+        <td>
+          <a
+            href="user/delete/<%=user._id%>"
+            class="table_link link_delete delete_user"
+            ><input type="hidden" name="userId" value="<%=user._id%>" /><i
+              class="fa-solid fa-trash"
+            ></i>
+            Xóa</a
+          >
+        </td>
+      </tr>
+
+      <% } %> <% } else { %>
+      <tr>
+        <td colspan="8">Không có người dùng</td>
+      </tr>
+      <% } %>
+    </table>
+  </div>
+  <%- include('../includes/navigation.ejs') %>
+</div>
+
+<%- include('../../notify/notify.ejs') %> <%- include('../testicludes/end.ejs')
+%>

@@ -1,0 +1,387 @@
+<%- include('../includes/head.ejs') %>
+<div class="header">
+<%- include('../includes/nav.ejs') %>
+    
+    <div class="header_background">
+      <div class="header_background_video">
+        <video
+          src="/video/Pexels Videos 2155942.mp4"
+          class="nav_background"
+          muted
+          autoplay
+          loop
+        ></video>
+      </div>
+
+      <div class="background_center">
+        <div class="background_center_top">
+          <h3>OUR PACKAGES</h3>
+          <h1>Search your Holiday</h1>
+        </div>
+        <div class="background_center_bottom">
+          <form action="" class="serch-form">
+            <div class="from-input">
+              <div class="form-control">
+                <label for="tinh">Select your place:</label>
+                <input type="text" name="name" placeholder="Nhập tên" value="<%=valueSearch.name%>">
+              </div>
+              <div class="form-control">
+                <label for="tinh">Select your location:</label>
+                <input type="text" name="location" value="<%=valueSearch.location%>" placeholder="Nhập địa điểm">
+              </div>
+              <div class="form-control">
+                <div class="form-price">
+                  <label
+                    for="price"
+                    style="margin-bottom: 0; line-height: 40px"
+                    >Max Price:</label
+                  >
+                  <h3 class="current_price"><% if(valueSearch.price) { %>
+                  $ <%=valueSearch.price * 100%>
+                  <% } else { %>
+                    $0
+                    <% } %>
+                  </h3>
+                </div>
+                <input type="range" name="price" min="0" max="20" value="<%=valueSearch.price%>" />
+              </div>
+            </div>
+            <div class="form-button">
+              <button class="btn" type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i> MORE FILTER
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="categories">
+    <div class="grid wide">
+      <div class="row row_intro">
+        <div class="col l-4 m-12 c-12 " >
+         <div class="intro_item">
+          <img src="/images/beach.svg" alt="" class="intro_img">
+          <div class="intro_content">
+            <h2 class="intro_title">Top Destinations</h2>
+            <h4 class="intro_subtitle">Nulla pretium tincidunt feils, nex</h4>
+          </div>
+         </div>
+         
+        </div>
+        <div class="col l-4 m-12 c-12 ">
+          <div class="intro_item">
+            <img src="/images/wallet.svg" alt="" class="intro_img">
+            <div class="intro_content">
+              <h2 class="intro_title">The Best Price</h2>
+              <h4 class="intro_subtitle">Sollicitudin mauris lobortis in.</h4>
+            </div>
+           </div>
+        </div>
+        <div class="col l-4 m-12 c-12 ">
+          <div class="intro_item">
+            <img src="/images/suitcase.svg" alt="" class="intro_img">
+            <div class="intro_content">
+              <h2 class="intro_title">Amazing Services</h2>
+              <h4 class="intro_subtitle">Nulla pretium tincidunt feils, nex</h4>
+            </div>
+           </div>
+        </div>
+      </div>
+      <div class="row row_section">
+        <div class="col l-12 c-12 m-12">
+
+          <h5 class="section_subtitle textWhite">simply amazing places</h5>
+          <h1 class="section_title textWhite" >Popular Destinations</h1>
+        </div>
+       </div>
+      <% if(isSearch) { %>
+       <h1 style="text-align: left;">- Có <%=allTour.length%> kết quả được tìm thấy</h1>
+      <% } %>
+       <div class="tab_container--1 tab_container_opration click">
+        <div class="row">
+          <% if(allTour.length > 0) { %>
+            <% for(let tour of allTour) { %>
+          <div class="col l-4 m-6 c-12 tour_main">
+            <div class="tour">
+              <img src="/<%=tour.imageUrl%>" alt="" class="tour_img" />
+              <div class="tour_margin">
+                <div class="tour_place">
+                  <h2 class="tour_place_header"><%=tour.name%></h2>
+                  <h4 class="tour_place_nation">
+                    <i class="fa-solid fa-location-dot tour_icon"></i>
+                    <%=tour.location%>
+                  </h4>
+                </div>
+                <hr />
+                <div class="tour_style_price">
+                  <div class="tour_style">
+                    <h3 class="tour_style_text">RELAX</h3>
+                    <div class="tour_quantity">+1</div>
+                  </div>
+                  <h2 class="tour_price">$<%=tour.price%></h2>
+                </div>
+                <hr />
+                <div class="tour_des">
+                  <p>
+                    <%=tour.description%>
+                  </p>
+                </div>
+                <div class="tour_bottom">
+                  <a href="/tour/<%=tour._id%>" class="tour_bottom_link">
+                    <p>Details</p>
+                    <i class="fa-solid fa-file tour"></i
+                  ></a>
+
+                  <div class="tour_bottom_creator">
+                    <img
+                      src="/<%=tour.userId.image%>"
+                      alt=""
+                      class="tour_bottom_creator_image"
+                    />
+                    <h5 class="tour_bottom_creator_name"><%=tour.userId.name%></h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% } %>
+          <% } %>
+        </div>
+      </div>
+      
+    </div>
+    <div class="paralx">
+      <img class="testimonials" src="/images/testimonials.jpg">
+  
+    <div class="parallax_background">
+      <h5 class="section_subtitle textWhite">simply amazing places</h5>
+      <h1 class="section_title textWhite">Testimonials</h1>
+      <p class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. lobortis dolor. Cras placerat lectus a posuere aliquet. Curabitur quis vehicula odio.</p>
+      <div class="test_name_author">
+      <p class="test_author">john turner,</p>
+      <p class="text_client">client</p>
+    </div>
+    </div>
+    
+  </div>
+  <div class="grid wide">
+    <div class="news"></div>
+      <div class="row">
+        <div class="col l-8 m-8 c-12">
+          <div class="news_container">
+            <div class="news_post">
+              <div class="new_post_image">
+                <img src="/images/news_1.jpg.webp" class="post_image" alt="">
+              </div>
+              <div class="news_post_content">
+                <div class="news_post_date">
+                  <div>02</div>
+                  <div>June</div>
+                </div>
+                <div class="news_post_title">
+                  <a href="">Best tips to travel light</a>
+                </div>
+                <div class="news_post_categorr">
+                  <a href="">lifestyle & travel</a>
+                </div>
+                <div class="news_post_text">
+                  <p>Pellentesque sit amet elementum ccumsan sit amet mattis eget, tristique at leo. Vivamus massa.Tempor massa et laoreet.</p>
+                </div>
+              </div>
+            </div>
+            <div class="news_post">
+              <div class="new_post_image">
+                <img src="/images/news_2.jpg.webp" class="post_image" alt="">
+              </div>
+              <div class="news_post_content">
+                <div class="news_post_date">
+                  <div>02</div>
+                  <div>June</div>
+                </div>
+                <div class="news_post_title">
+                  <a href="">Best tips to travel light</a>
+                </div>
+                <div class="news_post_categorr">
+                  <a href="">lifestyle & travel</a>
+                </div>
+                <div class="news_post_text">
+                  <p>Pellentesque sit amet elementum ccumsan sit amet mattis eget, tristique at leo. Vivamus massa.Tempor massa et laoreet.</p>
+                </div>
+              </div>
+            </div>
+            <div class="news_post">
+              <div class="new_post_image">
+                <img src="/images/news_3.jpg.webp" class="post_image" alt="">
+              </div>
+              <div class="news_post_content">
+                <div class="news_post_date">
+                  <div>02</div>
+                  <div>June</div>
+                </div>
+                <div class="news_post_title">
+                  <a href="">Best tips to travel light</a>
+                </div>
+                <div class="news_post_categorr">
+                  <a href="">lifestyle & travel</a>
+                </div>
+                <div class="news_post_text">
+                  <p>Pellentesque sit amet elementum ccumsan sit amet mattis eget, tristique at leo. Vivamus massa.Tempor massa et laoreet.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col l-4 m-4 c-12">
+          <div class="travello">
+            <div class="travello_background_image"></div>
+            <div class="travello_content">
+              <div class="travello_content_inner">
+                <div></div>
+                <div></div>
+              </div>
+            </div>
+            <div class="travello_container">
+              <div class="travello_heading">
+                <span class="travello_title">Get a 20% Discount</span>
+                <span class="travello_subtitle">Buy Your Vacation Online Now</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="news"></div>
+    <div class="footer">
+      <div class="grid wide">
+        <div class="row">
+          <div class="col l-3 m-6 c-12">
+            <div class="footer_container">
+              <h5 class="footer_header">Travel.</h5>
+              <p class="footer_text">
+                Lorem Ipsum is simply dummy text of the printing and
+                typesetting industry. Lorem Ipsum has been the industry's
+                standard dummy text ever since the 1500s, when an unknown
+                printer took a galley of type and scrambled it to make a type
+                specimen book.
+              </p>
+              <ul class="footer_list_icon">
+                <li class="footer_item">
+                  <a href="" class="footer_link"><i class="fa-brands fa-twitter"></i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"><i class="fa-brands fa-youtube"></i></i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"><i class="fa-brands fa-facebook"></i></i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"><i class="fa-brands fa-instagram"></i></i></a>
+                </li>
+                
+              </ul>
+            </div>
+          </div>
+          <div class="col l-3 m-6 c-12">
+            <div class="footer_container">
+              <h5 class="footer_header">OUR AGENCY</h5>
+              <ul class="footer_list">
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Services</i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Insurance </a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Agency</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Tourism</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Payment</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col l-3 m-6 c-12">
+            <div class="footer_container">
+              <h5 class="footer_header">PARTNERS</h5>
+              <ul class="footer_list">
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Booking</i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > RentalCar </a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > HostelWorld</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Trivago</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > TripAdvisor</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col l-3 m-6 c-12">
+            <div class="footer_container">
+              <h5 class="footer_header">LAST MINUTE</h5>
+              <ul class="footer_list">
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > LonDon</i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Califonia </a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Indonesia</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Europe</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Oceania </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% if(hasSuccess) { %>
+    <div class="notify">
+      <div class="notify_in">
+        <i class="fa-solid fa-check notify_icon"></i>
+      
+        <h4 class="notify_message"><%= NotifyMessage %></h4>
+          
+        <i class="fa-solid fa-x notify_icon_delete"></i>
+      </div>
+    </div>
+    <% } %>
+   <% if(hasError) {%>
+    <div class="notify" style="background-color:  #ed1c24;">
+      <div class="notify_in">
+        
+        <i class="fa-solid fa-exclamation notify_icon" style="padding: 5px 10px"></i>
+      
+        <h4 class="notify_message"><%= NotifyMessage %></h4>
+          
+        <i class="fa-solid fa-x notify_icon_delete"></i>
+      </div>
+    </div>
+    <% } %>
+   <script>
+    const iconDeleteNotify = document.querySelector('.notify_icon_delete');
+     
+      iconDeleteNotify.addEventListener('click', function(e) {
+        const notify = e.target.closest('.notify');
+        
+        notify.style.display = 'none';
+      })
+   </script>
+<%- include('../includes/end.ejs') %>

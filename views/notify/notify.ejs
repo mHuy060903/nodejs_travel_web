@@ -1,0 +1,32 @@
+<% if(hasSuccess) { %>
+    <div class="notify">
+      <div class="notify_in">
+        <i class="fa-solid fa-check notify_icon"></i>
+      
+        <h4 class="notify_message"><%= NotifyMessage %></h4>
+          
+        <i class="fa-solid fa-x notify_icon_delete"></i>
+      </div>
+    </div>
+    <% } %>
+   <% if(hasError) {%>
+    <div class="notify" style="background-color:  #ed1c24;">
+      <div class="notify_in">
+        
+        <i class="fa-solid fa-exclamation notify_icon" style="padding: 5px 10px"></i>
+      
+        <h4 class="notify_message"><%= NotifyMessage %></h4>
+          
+        <i class="fa-solid fa-x notify_icon_delete"></i>
+      </div>
+    </div>
+    <% } %>
+   <script>
+    const iconDeleteNotify = document.querySelector('.notify_icon_delete');
+     
+      iconDeleteNotify.addEventListener('click', function(e) {
+        const notify = e.target.closest('.notify');
+        
+        notify.style.display = 'none';
+      })
+   </script>

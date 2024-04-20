@@ -1,0 +1,131 @@
+<%- include('../includes/head.ejs') %>
+
+    <div class="header">
+      
+<%- include('../includes/nav.ejs') %>
+      
+    <div class="nav_background_login">
+      <img src="/images/background_login.jpg" alt="" width="100%"  />
+      </div>
+      <div class="form_body">
+        <div class="grid">
+          <div class="row">
+           
+            <div class="col l-12 m-12 c-12">
+              <div class="form_container form-login-row">
+                <div class="form_control" style="font-size: 20px;">
+                 Reset Password
+                </div>
+                <hr class="Idicator" style="left: 0px;"
+                 />
+                <form action="/reset" class="form_login <% if(resetPassword) { %>
+                    form_reset
+                    <% } %>
+                    " method="post">
+                  
+                  <div class="form_group">
+                    <label for="passowrd">Email:</label>
+                    <input
+                     class="<%= ErrorsArray.find(e => e.param === 'email')? 'error' : ''; %>"
+                      type="text"
+                      name="email"
+                      placeholder="Enter Email"
+                     value="<%=oldInput%>"
+                    />
+                    <span class="message_error"> <%= ErrorsArray.find(e => e.param === 'email') ? ErrorsArray.find(e => e.param === 'email').msg : '' %></span>
+                   
+
+                  </div>
+                  <button class="btn_form">Reset Password</button>
+                  
+                </form>
+                <form action="/resetpassword" class="form_login <% if(!resetPassword) { %>
+                    form_reset
+                    <% } %>" method="post">
+                    <div class="form_group">
+                        <label for="passowrd">Password:</label>
+                        <input
+                        class="<%= ErrorsArray.find(e => e.param === 'password')? 'error' : ''; %>"
+                          type="password"
+                          name="password"
+                          placeholder="Enter Password"
+                          value="<%=oldInput%>"
+                        />
+                        <input type="hidden" name="userId" value="<%=userId%>">
+                         <input type="hidden" name="passwordToken" value="<%=passwordToken%>">
+                    <span class="message_error"> <%= ErrorsArray.find(e => e.param === 'password') ? ErrorsArray.find(e => e.param === 'password').msg : '' %></span>
+
+                      </div>
+
+                  
+                  <button class="btn_form">Reset Password</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% if(hasSuccess) { %>
+      <div class="notify">
+        <div class="notify_in">
+          <i class="fa-solid fa-check notify_icon"></i>
+        
+          <h4 class="notify_message"><%= NotifyMessage %></h4>
+            
+          <i class="fa-solid fa-x notify_icon_delete"></i>
+        </div>
+      </div>
+      <% } %>
+     <% if(hasError) {%>
+      <div class="notify" style="background-color:  #ed1c24;">
+        <div class="notify_in">
+          
+          <i class="fa-solid fa-exclamation notify_icon" style="padding: 5px 10px"></i>
+        
+          <h4 class="notify_message"><%= NotifyMessage %></h4>
+            
+          <i class="fa-solid fa-x notify_icon_delete"></i>
+        </div>
+      </div>
+      <% } %>
+    <script>
+      const formLogin = document.querySelector(".form_login");
+      const formRegis = document.querySelector(".form_register");
+      const icadition = document.querySelector(".Idicator");
+
+      const login = function () {
+        formLogin.style.left = "-300px";
+        formRegis.style.left = "0px";
+        icadition.style.left = "40px";
+      };
+
+      const register = function () {
+        formLogin.style.left = "0px";
+        formRegis.style.left = "300px";
+        icadition.style.left = "-40px";
+      };
+
+      const navIconOpen = document.querySelector(".icon_open");
+      const navIconClose = document.querySelector(".icon_close");
+      const navMobile = document.querySelector(".nav_list-mobile");
+
+      navIconOpen.addEventListener("click", function (e) {
+        e.preventDefault();
+        navMobile.classList.add("click");
+      });
+
+      navIconClose.addEventListener("click", function (e) {
+        e.preventDefault();
+        navMobile.classList.remove("click");
+      });
+      const iconDeleteNotify = document.querySelector('.notify_icon_delete');
+     
+      iconDeleteNotify.addEventListener('click', function(e) {
+        const notify = e.target.closest('.notify');
+        
+        notify.style.display = 'none';
+      })
+    </script>
+  </body>
+</html>

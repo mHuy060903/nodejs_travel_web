@@ -1,0 +1,78 @@
+<%- include('../testicludes/head.ejs') %>
+ <%- include('../testicludes/nav.ejs') %>
+<div class="right_container_in">
+  <a href="/admin/tour" class="right_container_link">Quay lại</a>
+
+  <form action="<% if(editMode) { %> 
+    /admin/tour/edit
+    <% } else { %>
+    /admin/tour/add
+     <% } %>
+    " class="form_user_add" method="POST" enctype="multipart/form-data">
+
+    <div class="form_user_add_container">
+      
+       <h1 class="form_user_add_header"><% if(editMode) { %> 
+        SỬA TOUR
+        <% } else { %>
+        THÊM TOUR
+         <% } %></h1>
+    
+    <div class="form_control_user_add">
+      <label for="name">Tên</label>
+      <input  type="text" value="<%=oldInput.name%>" placeholder="Nhập tên"  name="name" class="input_admin <%= errorsArray.find(e => e.param === 'name') ? 'input_error' : 'false'; %>"  />
+      <!-- <span class="message_error">haha</span> -->
+      <span class="message_error"><%= errorsArray.find(e => e.param === 'name') ? errorsArray.find(e => e.param === 'name').msg : '' %></span>
+    </div>
+
+    <div class="form_control_user_add">
+      <label for="location">Địa điểm:</label>
+      <input placeholder="Nhập địa điểm" value="<%=oldInput.location%>" type="text" name="location" class="input_admin <%= errorsArray.find(e => e.param === 'location') ? 'input_error' : 'false'; %>"/>
+      <span class="message_error"><%= errorsArray.find(e => e.param === 'location') ? errorsArray.find(e => e.param === 'location').msg : '' %></span>
+      
+    </div>
+   
+      <div class="form_control_user_add">
+        <label for="name">Image</label>
+        <input type="file"  name="image" />
+        <!-- <span class="message_error">haha</span> -->
+      <span class="message_error"><%= errorsArray.find(e => e.param === 'image') ? errorsArray.find(e => e.param === 'image').msg : '' %></span>
+       
+      </div>
+     
+    <div class="form_control_user_add">
+      <label for="price">Price</label>
+      <input placeholder="Nhập giá" value="<%=oldInput.price%>" type="number" name="price" class="input_admin <%= errorsArray.find(e => e.param === 'price') ? 'input_error' : 'false'; %>"/>
+      <span class="message_error"><%= errorsArray.find(e => e.param === 'price') ? errorsArray.find(e => e.param === 'price').msg : '' %></span>
+      
+    </div>
+    
+    <div class="form_control_user_add">
+      <label for="date">Date Start:</label>
+      <input type="date" value="<%=oldInput.date%>"  name="date" class="input_admin <%= errorsArray.find(e => e.param === 'date') ? 'input_error' : 'false'; %>" />
+      <span class="message_error"><%= errorsArray.find(e => e.param === 'date') ? errorsArray.find(e => e.param === 'date').msg : '' %></span>
+      
+    </div>
+    <div class="form_control_user_add">
+      <label for="password">Description</label>
+      <textarea  id="editor" name="des" class="input_admin <%= errorsArray.find(e => e.param === 'des') ? 'input_error' : 'false'; %>" id="" ><%=oldInput.des%></textarea>
+      <span class="message_error"><%= errorsArray.find(e => e.param === 'des') ? errorsArray.find(e => e.param === 'des').msg : '' %></span>
+      
+    </div>
+       <% if(editMode) { %>
+       <input type="hidden" value="<%=tourId%>" name="tourId">
+      <% } %>
+    <button type="submit" class="form_user_add_btn"> <% if(editMode) { %> 
+      Sửa 
+      <% } else { %>
+      Thêm
+       <% } %></button>
+    
+  </div>
+  </form>
+</div>
+
+<%- include('../../notify/notify.ejs') %> 
+ <%- include('../testicludes/end.ejs') %>
+
+

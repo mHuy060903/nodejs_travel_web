@@ -1,0 +1,225 @@
+.image_admin {
+  width: 100px;
+  height: 100px;
+}
+.image_tr {
+  width: 30px;
+  height: 30px;
+}
+.right_container_link {
+  padding: 10px 20px;
+  background-color: blue;
+  color: white;
+  border-radius: 5px;
+  display: inline-block;
+    width: 150px;
+    text-align: center;
+}
+.right_container_in {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.right_container_searching {
+  display: flex;
+  width: 100%;
+  margin: 20px 0;
+}
+table,
+td,
+th {
+  border: 1px solid;
+  text-align: center;
+}
+.admin_tr td {
+  font-size: 20px;
+  padding: 10px 0;
+}
+.admin_table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.right_container_search_btn {
+  background-color: #0000ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+.right_container_search {
+  outline: none;
+}
+.table_link {
+  padding: 8px;
+  border-radius: 10px;
+  color: white;
+}
+.link_edit {
+  background-color: rgb(247, 124, 2);
+}
+.link_delete {
+  background-color: rgb(232, 16, 16);
+}
+.admin_th {
+    font-size: 20px;
+    padding: 10px 0;
+}
+.pagination {
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.pagination_page {
+    padding: 5px 10px;
+    background-color: rgb(255, 98, 0);
+    color: white;
+    border-radius: 3px;
+    border: none    ;
+}
+.pagination_page.active {
+    background-color: rgb(128, 56, 12);
+}
+.form_control_user_add {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+.form_user_add_header {
+  text-align: center;
+  
+}
+.input_admin{
+  
+  outline-color: #3b3bf2;
+  border: 1px solid #999;
+  padding: 5px 5px;
+  border-radius: 5px;
+}
+.input_admin.input_error {
+  
+  border-color: red;
+}
+.message_error {
+  margin-top: 2px;
+  color: red;
+}
+.form_user_add_btn {
+  margin-top: 20px;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 8px;
+  background-color: rgb(88, 236, 9);
+  
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 600;
+}
+.form_user_add_btn:hover {
+  background-color: rgb(64, 160, 13);
+  color: black;
+}
+.payment_row {
+  text-align: center;
+  box-shadow: 0.1px 0.1px 3px #999;
+  padding: 5px 0px;
+  align-items: center;
+}
+.container_confirm_text {
+
+}
+.payment_has_icon {
+  border: none;
+  padding: 10px;
+  color: green;
+  background-color: rgb(31, 234, 31);
+  border-radius: 3px;
+}
+.modal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: none;
+}
+
+
+.modal_overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.modal_body {
+  background-color: white;
+  margin: auto;
+  width: 450px;
+  height: 380px;
+  z-index: 999;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0.1px 0.1px 2px black;
+  animation: aniForm forwards 0.6s;
+}
+.modal_body_container {
+  padding: 10px;
+  position: relative;
+}
+.icon_body_x {
+ position: absolute;
+ right: 10px;
+ top: 10px;
+}
+.body_heading {
+ text-align: center;
+}
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+.form_group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.form_group h3 {
+  font-size: 18px;
+  color: black;
+}
+.form_find {
+  position: relative;
+  padding-bottom: 15px;
+}
+.date_error {
+  border: 1px solid red;
+  color: red;
+}
+.form_find span {
+  position: absolute;
+  left: 0;
+  top: 30px;
+  color: red;
+}

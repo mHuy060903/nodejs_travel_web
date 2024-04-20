@@ -1,0 +1,139 @@
+<%- include('../testicludes/head.ejs') %> <%- include('../testicludes/nav.ejs')
+%>
+
+<div class="right_container_in">
+  <form action="" class="form_find">
+    <label for="day">Ngày thống kê: </label>
+    <input
+      type="date"
+      class="<% if(error) { %> date_error <% } %>"
+      name="day"
+      value="<%=date%>"
+    />
+    <button type="submit" class="right_container_search_btn">Xác nhận</button>
+    <span>
+      <% if(error) { %> Ngày thống kê không thể lớn hơn ngày hiện tại <% } %>
+    </span>
+  </form>
+  <div class="row payment_row" style="padding: 2px 0px">
+    <div class="col l-2-4 m-3 c-3">
+      <div class="container_confirm_text">STK</div>
+    </div>
+    <div class="col l-2-4 m-3 c-3">
+      <div class="container_confirm_text">Email</div>
+    </div>
+    <div class="col l-2-4 m-3 c-3">
+      <div class="container_confirm_text">Price</div>
+    </div>
+    <div class="col l-2-4 m-3 c-3">
+      <div class="container_confirm_text">Xem chi tiết</div>
+    </div>
+    <div class="col l-2-4 m-3 c-3">
+      <div class="container_confirm_text">Thời gian thanh toán</div>
+    </div>
+  </div>
+  <div
+    class="container_confirm"
+    style="
+      height: 250px;
+      overflow: auto;
+      padding: 0 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0.1px 0.1px 3px #333;
+    "
+    id="style-1"
+  >
+    <% if(arrCheck.length > 0) { %> <% for(let check of arrCheck) { %>
+    <div class="row payment_row">
+      <div class="col l-2-4 m-2-4 c-2-4">
+        <div class="container_confirm_text"><%=check.infor.STK%></div>
+      </div>
+      <div class="col l-2-4 m-2-4 c-2-4">
+        <div class="container_confirm_text"><%=check.user.email%></div>
+      </div>
+      <div class="col l-2-4 m-2-4 c-2-4">
+        <div class="container_confirm_text">$<%=check.infor.total%></div>
+      </div>
+
+      <div class="col l-2-4 m-2-4 c-2-4" style="text-align: center">
+        <div class="container_confirm_text">
+          <button class="payment_has_icon icon_detail">
+            <i class="fa-solid fa-eye payment_icon_detail"></i>
+            <input type="hidden" name="checkId" value="<%=check._id%>">
+          </button>
+        </div>
+      </div>
+      <div class="col l-2-4 m-2-4 c-2-4">
+        <div class="container_confirm_text time_token">
+          <%=check.infor.date%>
+        </div>
+      </div>
+    </div>
+    <% } %> <% } else { %>
+    <div class="row payment_row">
+      <div class="col l-12 c-12 m-12">
+        <h3 style="text-align: center">Không có đơn hàng</h3>
+      </div>
+    </div>
+    <% } %>
+    <!-- <div
+        class="row payment_row"
+        style="border: none; justify-content: center; "
+      >
+        <h2 style="font-size: 18px;">Chưa có đơn thanh toán nào cần xác nhận</h2>
+      </div> -->
+  </div>
+  <div class="total_container" style="text-align: right">
+    <h1 class="total_heading" style="font-size: 25px">
+      Tổng cộng: $<%=total%>
+    </h1>
+  </div>
+</div>
+<% if(arrCheck.length > 0) { %> <% for(let check of arrCheck) { %>
+<div class="modal modal_<%=check._id.toString()%>">
+  <div class="modal_overlay"></div>
+  <div class="modal_body">
+    <div class="modal_body_container">
+      <i class="fa-solid fa-x icon_body_x"></i>
+      <h3 class="body_heading">Chi tiết hóa đơn</h3>
+      <div class="form_group">
+        <label for="">Email:</label>
+        <h3><%=check.user.email%></h3>
+      </div>
+      <div class="form_group">
+        <label for="">Name:</label>
+        <h3><%=check.user.userId.name%></h3>
+      </div>
+      <div class="form_group">
+        <label for="">STK:</label>
+        <h3><%=check.infor.STK%></h3>
+      </div>
+      <table id="customers">
+        <tr>
+          <th>Name Tour</th>
+          <th>Quantity</th>
+          <th>Total Price</th>
+        </tr>
+        <% for(let c of check.tours) { %>
+        <tr>
+          <td><%=c.tour.name%></td>
+          <td><%=c.quantity%></td>
+          <td>$<%=c.tour.price * c.quantity%></td>
+        </tr>
+       <% } %>
+      </table>
+    </div>
+  </div>
+</div>
+<% } %> <% }%>
+<script>
+  //const coso = function() {
+  //console.log(1);
+  //}
+
+  //const test = setInterval(coso, 1000);
+</script>
+
+<%- include('../testicludes/end.ejs') %>

@@ -1,0 +1,303 @@
+<%- include('../includes/head.ejs') %>
+<div class="header">
+<%- include('../includes/nav.ejs') %>
+</div>
+<div class="profile_content">
+
+    
+    <div class="grid wide">
+        <div class="row">
+            <div class="col l-2 m-2 c-2">
+                <div class="profile_container_navbar">
+                  <div class="profile_person">
+                    <div class="profile_person_div_img">
+
+                      <img src="/<%=user.image%>" alt="" class="profile_person_img">
+                    </div>
+                    <h2 class="profile_person_name"><%=user.name%></h2>
+                  </div>
+                 <hr>
+                  <ul class="profile_nav">
+                     <li class="profile_nav_item">
+                      <i class="fa-solid fa-user profile_icon_nav"></i>
+                      
+                        <a href="" data-page="1" class="profile_nav_link">Hồ sơ</a>
+                     </li>
+                     <li class="profile_nav_item">
+                      <i class="fa-solid fa-lock profile_icon_nav"></i>
+                        <a href="" data-page="2" class="profile_nav_link">Đổi mật khẩu</a>
+                     </li>
+                  
+                  </ul>
+                </div>
+            </div>
+            <div class="col-l-10 m-10 c-10">
+   <div class="profile_container_in content-1 <%if(isChange) { %>
+     active
+    <% } %>
+    ">
+    
+     
+
+     
+      <h3 class="profile_heading">Hồ sơ của bạn</h3>
+      <div class="profile_sub_heading">Quản lý thông tin để bảo mật tài khoản</div>
+     <hr>
+      <form  class="profile_content_form" method="post" action="/profile" enctype="multipart/form-data">
+          <div class="profile_content_box">
+            <label for="">Tên đăng nhập</label>
+            <input type="text" name="name" value="<%=user.name%>"  class="<%= errorArray.find(e => e.param === 'name') ? 'error' : 'false'; %>">
+            <span class="error_profile"><%= errorArray.find(e => e.param === 'name') ? errorArray.find(e => e.param === 'name').msg : '' %></span>
+          </div>
+        
+          <div class="profile_content_box">
+            <label for="">Ảnh đại diên</label>
+            <input type="file" name="image">
+          </div>
+          <div class="profile_content_box">
+            <label for="">Địa chỉ</label>
+            <input type="text" name="address" value="<%=user.address%>" class="<%= errorArray.find(e => e.param === 'address') ? 'error' : 'false'; %>">
+            <span class="error_profile"><%= errorArray.find(e => e.param === 'address') ? errorArray.find(e => e.param === 'address').msg : '' %></span>
+          
+          </div>
+          <div class="profile_content_box">
+            <label for="">SĐT</label>
+            <input type="text" name="phone" value="<%=user.SDT%>" class="<%= errorArray.find(e => e.param === 'sdt') ? 'error' : 'false'; %>">
+            <span class="error_profile"><%= errorArray.find(e => e.param === 'sdt') ? errorArray.find(e => e.param === 'sdt').msg : '' %></span>
+          
+          </div>
+          <div class="profile_content_box">
+            <label for="">Giới tính</label>
+             <div class="profile_content_radio">
+              <div class="profile_content_radio_in">
+                <label for="">Nam</label>
+                <input type="radio"  name="sex" <% if(+user.sex === 1) { %>
+                  checked
+               <% } %> value="1">
+              </div>
+              <div class="profile_content_radio_in">
+                <label for="">Nữ</label>
+                <input type="radio" name="sex" value="2"<% if(+user.sex === 2) { %>
+                  checked
+               <% } %>>
+              </div>
+              <div class="profile_content_radio_in">
+                <label for="">Khác</label>
+
+                <input type="radio" name="sex" value="3" <% if(+user.sex === 3) { %>
+                  checked
+               <% } %>>
+              </div>
+             </div>
+          </div>
+          <button type="submit" class="profile_content_button">Lưu</button>
+      </form>
+    
+    
+   </div>
+                <div class="profile_container_in content-2 <%if(!isChange) { %>
+                  active
+                 <% } %>">
+                  <h3 class="profile_heading">Đổi mật khẩu</h3>
+                  
+                  <hr>
+                  <form  class="profile_content_form" method="post" action="/changepass" >
+                      <div class="profile_content_box">
+                        <label for="">Mật khẩu hiện tại</label>
+                        <input type="password" name="oldPassword" value="<%=oldInput.oldPw%>" class="<%= errorArray.find(e => e.param === 'oldPassword') ? 'error' : 'false'; %>">
+            <span class="error_profile"><%= errorArray.find(e => e.param === 'oldPassword') ? errorArray.find(e => e.param === 'oldPassword').msg : '' %></span>
+                        
+                      </div>
+                      <div class="profile_content_box">
+                        <label for="">Mật khẩu mới:</label>
+                        <input type="password" name="newPassword" value="<%=oldInput.newPw%>"  class="<%= errorArray.find(e => e.param === 'newPassword') ? 'error' : 'false'; %>">
+            <span class="error_profile"><%= errorArray.find(e => e.param === 'newPassword') ? errorArray.find(e => e.param === 'newPassword').msg : '' %></span>
+
+                      </div>
+                      <div class="profile_content_box">
+                        <label for="">Xác nhận mật khẩu</label>
+                        <input type="password" value="<%=oldInput.passCofirm%>" name="confirmPassword"  class="<%= errorArray.find(e => e.param === 'confirmPassword') ? 'error' : 'false'; %>">
+            <span class="error_profile"><%= errorArray.find(e => e.param === 'confirmPassword') ? errorArray.find(e => e.param === 'confirmPassword').msg : '' %></span>
+
+                      </div>
+                      <button type="submit" class="profile_content_button">Lưu</button>
+                  </form>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="footer">
+      <div class="grid wide">
+        <div class="row">
+          <div class="col l-3 m-6 c-12">
+            <div class="footer_container">
+              <h5 class="footer_header">Travel.</h5>
+              <p class="footer_text">
+                Lorem Ipsum is simply dummy text of the printing and
+                typesetting industry. Lorem Ipsum has been the industry's
+                standard dummy text ever since the 1500s, when an unknown
+                printer took a galley of type and scrambled it to make a type
+                specimen book.
+              </p>
+              <ul class="footer_list_icon">
+                <li class="footer_item">
+                  <a href="" class="footer_link"><i class="fa-brands fa-twitter"></i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"><i class="fa-brands fa-youtube"></i></i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"><i class="fa-brands fa-facebook"></i></i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"><i class="fa-brands fa-instagram"></i></i></a>
+                </li>
+                
+              </ul>
+            </div>
+          </div>
+          <div class="col l-3 m-6 c-12">
+            <div class="footer_container">
+              <h5 class="footer_header">OUR AGENCY</h5>
+              <ul class="footer_list">
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Services</i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Insurance </a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Agency</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Tourism</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Payment</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col l-3 m-6 c-12">
+            <div class="footer_container">
+              <h5 class="footer_header">PARTNERS</h5>
+              <ul class="footer_list">
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Booking</i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > RentalCar </a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > HostelWorld</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Trivago</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > TripAdvisor</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col l-3 m-6 c-12">
+            <div class="footer_container">
+              <h5 class="footer_header">LAST MINUTE</h5>
+              <ul class="footer_list">
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > LonDon</i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Califonia </a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Indonesia</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Europe</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Oceania </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% if(hasSuccess) { %>
+      <div class="notify">
+        <div class="notify_in">
+          <i class="fa-solid fa-check notify_icon"></i>
+        
+          <h4 class="notify_message"><%= NotifyMessage %></h4>
+            
+          <i class="fa-solid fa-x notify_icon_delete"></i>
+        </div>
+      </div>
+      <% } %>
+     <% if(hasError) {%>
+      <div class="notify" style="background-color:  #ed1c24;">
+        <div class="notify_in">
+          
+          <i class="fa-solid fa-exclamation notify_icon" style="padding: 5px 10px"></i>
+        
+          <h4 class="notify_message"><%= NotifyMessage %></h4>
+            
+          <i class="fa-solid fa-x notify_icon_delete"></i>
+        </div>
+      </div>
+      <% } %>
+    <script>
+      const navIconOpen = document.querySelector(".icon_open");
+      const navIconClose = document.querySelector(".icon_close");
+      const navMobile = document.querySelector(".nav_list-mobile");
+
+      navIconOpen.addEventListener("click", function (e) {
+        e.preventDefault();
+        navMobile.classList.add("click");
+      });
+
+      navIconClose.addEventListener("click", function (e) {
+        e.preventDefault();
+        navMobile.classList.remove("click");
+      });
+       //Control page
+       const linkPages = document.querySelectorAll('.profile_nav_link');
+       const contentPages = document.querySelectorAll('.profile_container_in');
+       console.log(contentPages);
+       linkPages.forEach(item => {
+        item.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetLink = e.target.closest('.profile_nav_link');
+          const dataPage = targetLink.dataset.page;
+          const displayPage = document.querySelector(`.content-${dataPage}`);
+         
+           contentPages.forEach(item => item.classList.add('active')); 
+           displayPage.classList.remove('active');
+        })
+       })
+
+       const allInput = document.querySelectorAll('.profile_content_box input');
+       
+       allInput.forEach(item => {
+        item.addEventListener('click', function(e) {
+          if(item.classList.contains('error')) {
+            item.classList.remove('error');
+            const span = e.target.parentNode.querySelector('.error_profile');
+            span.textContent = '';
+          }
+        })
+       })
+       const iconDeleteNotify = document.querySelector('.notify_icon_delete');
+     
+      iconDeleteNotify.addEventListener('click', function(e) {
+        const notify = e.target.closest('.notify');
+        
+        notify.style.display = 'none';
+      })
+     
+       
+      </script>
+<%- include('../includes/end.ejs') %>

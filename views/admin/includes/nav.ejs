@@ -1,0 +1,30 @@
+<div class="nav_admin">
+    <div class="nav_in_admin">
+      <h3 class="nav_heading_admin">Travel Admin</h3>
+      <div class="nav_user">
+        <img src="\<%=user.image%>" alt="" class="nav_user_image" />
+        <h3 class="nav_user_name"><%=user.name%></h3>
+      </div>
+      <ul class="nav_list_admin">
+        <li class="nav_list_item_admin <% if(path === '/user') { %> 
+            active
+            <% } %>
+            ">
+          <i class="fa-solid fa-user nav_admin_icon"></i>
+          <a href="/admin/user"  class="nav_list_link">Quản lý người dùng</a>
+        </li>
+        <li class="nav_list_item_admin  <% if(path === '/tour') { %> 
+            active
+            <% } %>">
+            <i class="fa-solid fa-globe nav_admin_icon"></i>
+          <a href="/admin/tour" class="nav_list_link">Quản lý tour</a>
+        </li>
+        <li class="nav_list_item_admin  <% if(path === '/checks') { %> 
+          active
+          <% } %>">
+          <i class="fa-solid fa-file-invoice nav_admin_icon"></i>
+        <a href="/admin/checks" class="nav_list_link">Quản lý hóa đơn</a>
+      </li>
+      </ul>
+    </div>
+  </div>

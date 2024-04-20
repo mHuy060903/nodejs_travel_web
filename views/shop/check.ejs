@@ -1,0 +1,186 @@
+<%- include('../includes/head.ejs') %>
+    <div class="header">
+      <%- include('../includes/nav.ejs') %>
+    </div>
+   
+    <div class="order">
+        <div class="grid wide">
+            <h1 class="header_order">Các tour bạn đã mua</h1>
+            <% if(checks.length > 0) { %>
+              <% checks.forEach(check => { %>
+            <div class="row" style="margin-top: 20px;">
+                <div class="col l-12 m-12 c-12">
+                    <div class="order_container">
+                          <div class="order_container_in">
+
+                              <div class="order_nav">
+                                <% if(check.infor.status === 0) { %>
+                                  <h3 class="order_date">Đã mua và chờ xác nhận: <%=check.infor.date%></h3>
+                               <% } else { %>
+                                <h3 class="order_date">Đã thanh toán thành công: <%=check.infor.date%></h3>
+                                <% } %>
+                              
+                              <div class="order_loader">
+                              <% if(check.infor.status === 0) { %>
+                               <div class="loader"></div>
+                               <h3 class="order_bill">Đơn hàng của bạn đang được xử lý</h3>
+                                <% } else { %>
+                              <a href="/check/<%=check._id%>" class="order_bill">In Hóa Đơn</a>
+
+                              <% } %>
+                              </div>
+                            </div>
+                            <%  check.tours.forEach(tour => { %>
+
+                             
+                              <div class="order_information">
+                                  <img src="/<%=tour.tour.imageUrl%>" alt="" class="order_img">
+                                  <h3 class="order_text"><%=tour.tour.name%></h3>
+                                  <h3 class="order_text">Số người: <%=tour.quantity%></h3>
+                                  <h3 class="order_text">Khởi hành: <%=tour.tour.date%></h3>
+                              </div>
+                              <%  }) %>
+                          </div>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+            <% } else { %>
+              <div class="row" style="margin-top: 20px;">
+                <h2 style="text-align: center;font-size: 22px; width: 100%;">Bạn chưa có đơn hàng nào</h2>
+                </div>
+              <% } %>
+        </div>
+    </div>
+    <div class="footer" style="margin-top: 175px;">
+      <div class="grid wide">
+        <div class="row">
+          <div class="col l-3 m-6 c-12">
+            <div class="footer_container">
+              <h5 class="footer_header">Travel.</h5>
+              <p class="footer_text">
+                Lorem Ipsum is simply dummy text of the printing and
+                typesetting industry. Lorem Ipsum has been the industry's
+                standard dummy text ever since the 1500s, when an unknown
+                printer took a galley of type and scrambled it to make a type
+                specimen book.
+              </p>
+              <ul class="footer_list_icon">
+                <li class="footer_item">
+                  <a href="" class="footer_link"><i class="fa-brands fa-twitter"></i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"><i class="fa-brands fa-youtube"></i></i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"><i class="fa-brands fa-facebook"></i></i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"><i class="fa-brands fa-instagram"></i></i></a>
+                </li>
+                
+              </ul>
+            </div>
+          </div>
+          <div class="col l-3 m-6 c-12">
+            <div class="footer_container">
+              <h5 class="footer_header">OUR AGENCY</h5>
+              <ul class="footer_list">
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Services</i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Insurance </a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Agency</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Tourism</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Payment</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col l-3 m-6 c-12">
+            <div class="footer_container">
+              <h5 class="footer_header">PARTNERS</h5>
+              <ul class="footer_list">
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Booking</i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > RentalCar </a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > HostelWorld</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Trivago</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > TripAdvisor</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col l-3 m-6 c-12">
+            <div class="footer_container">
+              <h5 class="footer_header">LAST MINUTE</h5>
+              <ul class="footer_list">
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > LonDon</i></a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Califonia </a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Indonesia</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Europe</a>
+                </li>
+                <li class="footer_item">
+                  <a href="" class="footer_link"> > Oceania </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const navIconOpen = document.querySelector(".icon_open");
+      const navIconClose = document.querySelector(".icon_close");
+      const navMobile = document.querySelector(".nav_list-mobile");
+
+      navIconOpen.addEventListener("click", function (e) {
+        e.preventDefault();
+        navMobile.classList.add("click");
+      });
+
+      navIconClose.addEventListener("click", function (e) {
+        e.preventDefault();
+        navMobile.classList.remove("click");
+      });
+
+     //COntro quantity
+const iconX = document.querySelector(".icon_order_form");
+const btnOn = document.querySelector(".btn_order");
+const modal = document.querySelector(".modal");
+const close = modal.querySelector(".close_x");
+
+iconX.addEventListener("click", function (e) {
+  modal.style.display = "none";
+});
+
+btnOn.addEventListener("click", function (e) {
+  e.preventDefault();
+  modal.style.display = "flex";
+});
+     
+    </script>
+ 
+    <%- include('../includes/end.ejs') %>

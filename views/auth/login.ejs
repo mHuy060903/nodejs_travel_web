@@ -1,0 +1,172 @@
+<%- include('../includes/head.ejs') %>
+
+    <div class="header">
+      
+<%- include('../includes/nav.ejs') %>
+      
+    <div class="nav_background_login">
+        <img src="/images/background_login.jpg" alt="" width="100%"  />
+      </div>
+      <div class="form_body">
+        <div class="grid">
+          <div class="row">
+           
+            <div class="col l-12 m-12 c-12">
+              <div class="form_container form-login-row">
+                <div class="form_control">
+                  <span onclick="register()">Đăng nhập</span>
+                  <span onclick="login()">Đăng kí</span>
+                </div>
+                <hr class="Idicator <% if(isgetSign) { %>
+                  sign
+                  <% } %>
+                  " />
+                <form action="/login" class="form_login <% if(isgetSign) { %>
+                  sign
+                  <% } %>" method="post">
+                  <div class="form_group">
+                    <label for="email">Email</label>
+                    <input
+                       class="<%= arrayErrorsLogin.find(e => e.param === 'email') ? 'error' : 'false'; %>"
+                      type="text"
+                      name="email"
+                      placeholder="Enter Email"
+                      value="<%=oldValueLogin.email %>"
+                    />
+                    <span class="message_error"> <%= arrayErrorsLogin.find(e => e.param === 'email') ? arrayErrorsLogin.find(e => e.param === 'email').msg : '' %></span>
+                  </div>
+                  <div class="form_group">
+                    <label for="passowrd">Password</label>
+                    <input
+                     class="<%= arrayErrorsLogin.find(e => e.param === 'password') ? 'error' : 'false'; %>"
+                      type="password"
+                      name="password"
+                      placeholder="Enter Password"
+                      value="<%=oldValueLogin.password %>"
+                    />
+                    <span class="message_error"> <%= arrayErrorsLogin.find(e => e.param === 'password') ? arrayErrorsLogin.find(e => e.param === 'password').msg : '' %></span>
+
+                  </div>
+                  <button class="btn_form">Login</button>
+                  <a href="/reset" class="form_forget">Forget Password?</a>
+                </form>
+                <form action="/signup" 
+                   class="form_register <% if(isgetSign) { %>
+                    sign
+                    <% } %>" method="post">
+                  <div class="form_group">
+                    <label for="email">User Name:</label>
+                    <input 
+                    class="<%= arrayErrorsSignup.find(e => e.param === 'name') ? 'error' : ''; %>"
+                      type="text"
+                      name="name"
+                      placeholder="Enter Name"
+                      value="<%=oldValueSignup.name %>"
+                    />
+                    <span class="message_error"> <%= arrayErrorsSignup.find(e => e.param === 'name') ? arrayErrorsSignup.find(e => e.param === 'name').msg : '' %></span>
+
+                  </div>
+                  <div class="form_group">
+                    <label for="email">Email</label>
+                    <input class="<%= arrayErrorsSignup.find(e => e.param === 'email') ? 'error' : '' %>"
+                     type="text" name="email" placeholder="Enter email" 
+                     value="<%=oldValueSignup.email %>"
+                     >
+                    <span class="message_error"> <%= arrayErrorsSignup.find(e => e.param === 'email') ? arrayErrorsSignup.find(e => e.param === 'email').msg : '' %></span>
+
+                  </div>
+                  <div class="form_group">
+                    <label for="passowrd">Password</label>
+                    <input
+                    class="<%= arrayErrorsSignup.find(e => e.param === 'name') ? 'error' : ''; %>"
+                      type="password"
+                      name="password"
+                      placeholder="Enter Password"
+                      value="<%=oldValueSignup.password %>"
+                    />
+                    <span class="message_error"><%= arrayErrorsSignup.find(e => e.param === 'password') ? arrayErrorsSignup.find(e => e.param === 'password').msg : '' %></span>
+
+                  </div>
+                  <div class="form_group">
+                    <label for="passowrd">Confirm Password</label>
+                    <input
+                    class="<%= arrayErrorsSignup.find(e => e.param === 'confirmpassword') ? 'error' : ''; %>"
+                      type="password"
+                      name="confirmpassword"
+                      placeholder="Confirm Password"
+                      value="<%=oldValueSignup.confirmpassword %>"
+                    />
+                    <span class="message_error"> <%= arrayErrorsSignup.find(e => e.param === 'confirmpassword') ? arrayErrorsSignup.find(e => e.param === 'confirmpassword').msg : '' %></span>
+
+                  </div>
+                  <button class="btn_form">Register</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% if(hasSuccess) { %>
+      <div class="notify">
+        <div class="notify_in">
+          <i class="fa-solid fa-check notify_icon"></i>
+        
+          <h4 class="notify_message"><%= NotifyMessage %></h4>
+            
+          <i class="fa-solid fa-x notify_icon_delete"></i>
+        </div>
+      </div>
+      <% } %>
+     <% if(hasError) {%>
+      <div class="notify" style="background-color:  #ed1c24;">
+        <div class="notify_in">
+          
+          <i class="fa-solid fa-exclamation notify_icon" style="padding: 5px 10px"></i>
+        
+          <h4 class="notify_message"><%= NotifyMessage %></h4>
+            
+          <i class="fa-solid fa-x notify_icon_delete"></i>
+        </div>
+      </div>
+      <% } %>
+    <script>
+      const formLogin = document.querySelector(".form_login");
+      const formRegis = document.querySelector(".form_register");
+      const icadition = document.querySelector(".Idicator");
+
+      const login = function () {
+        formLogin.style.left = "-300px";
+        formRegis.style.left = "0px";
+        icadition.style.left = "40px";
+      };
+
+      const register = function () {
+        formLogin.style.left = "0px";
+        formRegis.style.left = "300px";
+        icadition.style.left = "-40px";
+      };
+
+      const navIconOpen = document.querySelector(".icon_open");
+      const navIconClose = document.querySelector(".icon_close");
+      const navMobile = document.querySelector(".nav_list-mobile");
+
+      navIconOpen.addEventListener("click", function (e) {
+        e.preventDefault();
+        navMobile.classList.add("click");
+      });
+
+      navIconClose.addEventListener("click", function (e) {
+        e.preventDefault();
+        navMobile.classList.remove("click");
+      });
+      const iconDeleteNotify = document.querySelector('.notify_icon_delete');
+     
+      iconDeleteNotify.addEventListener('click', function(e) {
+        const notify = e.target.closest('.notify');
+        
+        notify.style.display = 'none';
+      })
+    </script>
+  </body>
+</html>
